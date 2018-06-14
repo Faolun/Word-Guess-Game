@@ -1,0 +1,51 @@
+
+html
+    theme
+
+    win
+    loss
+
+    display hidden word array
+
+    display remaining guesses
+        via image or number (or both)
+        
+    display guessed letters
+
+css
+    to match theme
+
+js
+
+    pick random word from array of words
+
+    display to html as "_ _ _ 
+
+    key press . lower, limit to one letter per round to prevent similar letter spam
+
+        if in word
+            display letter in sequence
+
+        else
+            display as guessed letter
+            and 
+            remove one guess
+
+    guesses
+        if reaches zero
+            game over
+
+    reset button/ new word button
+        alert?
+
+    
+        
+
+
+        
+
+
+    
+
+
+

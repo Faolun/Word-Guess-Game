@@ -1,0 +1,17 @@
+body{
+    color: white;
+    background-color: black;
+}
+
+.background {
+    background-image: url("../images/background.jpg");
+    background-size: cover;
+}
+
+/* game button css or use boostrap */
+
+#placeholders {
+
+    letter-spacing: 6px;
+    font-size: 35px;
+}
