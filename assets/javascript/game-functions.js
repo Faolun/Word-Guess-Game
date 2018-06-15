@@ -62,6 +62,7 @@ var wordBank = [
     "Pod Racing",
     "Chance Cube",
     "Rebels",
+    "Moff Jerjerrod",
 ];
 
 var wins = 0;
