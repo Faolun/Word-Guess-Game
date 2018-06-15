@@ -63,6 +63,7 @@ var wordBank = [
     "Chance Cube",
     "Rebels",
     "Moff Jerjerrod",
+    "R2-D2",
 ];
 
 var wins = 0;
@@ -191,7 +192,7 @@ function checkLoss() {
 d_newGameButton.addEventListener("click", newGame);
 
 
-//event listender and function for wook link
+//event listener and function for wook link
 
 $(document).ready(function() {
 $("#wookieepedia-button").on("click", function() {
@@ -205,7 +206,7 @@ $("#wookieepedia-button").on("click", function() {
 
 document.onkeyup = function(event) {
     console.dir(event);
-    if (event.keyCode >= 65 && event.keyCode <= 90) {
+    if (event.keyCode >= 65 && event.keyCode <= 90 || event.keyCode >= 48 && event.keyCode <= 57 || event.keyCode >= 96 && event.keyCode <= 105)  {
         letterGuess(event.key);
     }
 }
