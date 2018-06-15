@@ -135,7 +135,7 @@ function letterGuess(letter) {
     }
     else {
         if (!gameRunning) {
-            alert("The Game isn't running, click on the button to start!")
+            alert("The Game isn't running, click on <strong>May the force be with you!</strong> to start!")
         }
         else {
             alert("You've already guessed this letter!")
