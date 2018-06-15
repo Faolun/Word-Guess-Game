@@ -76,9 +76,6 @@ var userLetterArr = [];
 var wrongLetterArr = [];
 
 
-
-
-
 //newGame function
 
 function newGame() {
