@@ -1,17 +1,39 @@
 body{
     color: white;
     background-color: black;
+    
 }
+
+/* h1 {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: black;
+    /* border-radius: 25px; */
+    /* padding: 20px; */
+
+
 
 .background {
     background-image: url("../images/background.jpg");
     background-size: cover;
+
 }
 
-/* game button css or use boostrap */
+.logo {
+    
+    height: 200px;
+
+}
+
+.logoText {
+
+    padding: 20px;
+}
 
 #placeholders {
 
     letter-spacing: 6px;
-    font-size: 35px;
+    font-size: 75px;
 }

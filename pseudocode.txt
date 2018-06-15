@@ -38,6 +38,17 @@ js
     reset button/ new word button
         alert?
 
+
+wookapedia link
+        test if game is running
+        if it is
+            do not display
+        
+        if it isnt, it means the game was won or lost
+            concatenate the word into the address
+            enable the button
+        
+
     
         
 

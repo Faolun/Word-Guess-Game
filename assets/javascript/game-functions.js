@@ -2,12 +2,13 @@
 
 // references to document
 
-var $newGameButton = document.getElementById("new-game-button");
-var $placeholders = document.getElementById("placeholders");
-var $guessedLetters = document.getElementById("guessed-letters");
-var $guessesLeft = document.getElementById("guesses-left");
-var $wins = document.getElementById("wins");
-var $losses = document.getElementById("losses");
+var d_newGameButton = document.getElementById("new-game-button");
+var d_placeholders = document.getElementById("placeholders");
+var d_guessedLetters = document.getElementById("guessed-letters");
+var d_guessesRem = document.getElementById("guesses-left");
+var d_wins = document.getElementById("wins");
+var d_losses = document.getElementById("losses");
+var d_wookButton = document.getElementById("wookieepedia-button");
 
 //variables for game
 
@@ -15,17 +16,64 @@ var wordBank = [
     "Blaster",
     "Han Solo",
     "Slave One",
-    "Empire",
+    "The Galactic Empire",
+    "Echuta",
+    "Wookie",
+    "Wampa",
+    "Mandalorian",
+    "Jedi",
+    "Alderaan",
+    "Blue Milk",
+    "Cantina Band",
+    "Princess Leia",
+    "Hoth",
+    "Lightsaber",
+    "Droid",
+    "Senate",
+    "Darth Plagueis",
+    "Sith",
+    "Jar Jar Binks",
+    "Sarlacc Pit",
+    "Lando Calrissian",
+    "Bossk",
+    "Echo Base",
+    "Greedo",
+    "Boba Fette",
+    "Dengar",
+    "Luke Skywalker",
+    "Darth Vader",
+    "Chewbacca",
+    "Yoda",
+    "AT-AT",
+    "Tatooine",
+    "Naboo",
+    "Jabba the Hutt",
+    "Hydrospanner",
+    "Death Star",
+    "Imperial Class Star Destroyer",
+    "Turbolaser",
+    "Obi-Wan Kenobi",
+    "Anakin Skywalker",
+    "Waddo",
+    "Rancor",
+    "Dathomir",
+    "Dantooine",
+    "Rori",
+    "Pod Racing",
+    "Chance Cube",
+    "Rebels",
 ];
 
 var wins = 0;
 var losses = 0;
-var guessesLeft = 10;
+var guessesRem = 7;
 var gameRunning = false;
-var pickedWord = "";
-var pickedWordPlaceholderArr = [];
-var guessedLetterBank = [];
-var incorrectLetterBank = [];
+var ranWord = "";
+var ranWordPlaceholderArr = [];
+var userLetterArr = [];
+var wrongLetterArr = [];
+
+
 
 
 
@@ -33,49 +81,55 @@ var incorrectLetterBank = [];
 
 function newGame() {
     gameRunning = true;
-    guessesLeft = 10;
-    guessedLetterBank = [];
-    incorrectLetterBank = [];
-    pickedWordPlaceholderArr = [];
+    guessesRem = 7;
+    userLetterArr = [];
+    wrongLetterArr = [];
+    ranWordPlaceholderArr = [];
+    $('#wookieepedia-button').prop('disabled', true);
+    
 
     // new word
-    pickedWord = wordBank[Math.floor(Math.random() * wordBank.length)];
+    ranWord = wordBank[Math.floor(Math.random() * wordBank.length)];
 
     // create dashes
 
-    for (var i = 0; i < pickedWord.length; i++) {
-        if (pickedWord[i] === " ") {
-        pickedWordPlaceholderArr.push(" ");
+    for (var i = 0; i < ranWord.length; i++) {
+        if (ranWord[i] === " ") {
+        ranWordPlaceholderArr.push(" ");
+        } 
+        else if (ranWord[i] === "-") {
+        ranWordPlaceholderArr.push("-");
         } 
         else {
-        pickedWordPlaceholderArr.push("_");
+        ranWordPlaceholderArr.push("_");
         }
     }
 
     //write to doc
-    $guessesLeft.textContent = guessesLeft;
-    $placeholders.textContent = pickedWordPlaceholderArr.join("");
-    $guessedLetters.textContent = incorrectLetterBank;
+    d_guessesRem.textContent = guessesRem;
+    d_placeholders.textContent = ranWordPlaceholderArr.join("");
+    d_guessedLetters.textContent = wrongLetterArr;
+    
    
 }
 //letterGuess function, checks if letter is correct
 
 function letterGuess(letter) {
     
-    if (gameRunning === true && guessedLetterBank.indexOf(letter) === -1) {
+    if (gameRunning === true && userLetterArr.indexOf(letter) === -1) {
         // game logic
 
-        guessedLetterBank.push(letter);
+        userLetterArr.push(letter);
 
         // in picked word?
 
-        for (var i = 0; i < pickedWord.length; i++) {
-            if (pickedWord[i].toLowerCase() === letter.toLowerCase()) {
-                pickedWordPlaceholderArr[i] = pickedWord[i];
+        for (var i = 0; i < ranWord.length; i++) {
+            if (ranWord[i].toLowerCase() === letter.toLowerCase()) {
+                ranWordPlaceholderArr[i] = ranWord[i];
                 }
         }
 
-        $placeholders.textContent = pickedWordPlaceholderArr.join("");
+        d_placeholders.textContent = ranWordPlaceholderArr.join("");
         checkIncorrect(letter);
     }
     else {
@@ -92,12 +146,12 @@ function letterGuess(letter) {
 
 function checkIncorrect(letter) {
     
-    if (pickedWordPlaceholderArr.indexOf(letter.toLowerCase()) === -1 && pickedWordPlaceholderArr.indexOf(letter.toUpperCase()) === -1) {
+    if (ranWordPlaceholderArr.indexOf(letter.toLowerCase()) === -1 && ranWordPlaceholderArr.indexOf(letter.toUpperCase()) === -1) {
         
-    guessesLeft--;
-    incorrectLetterBank.push(letter);
-    $guessedLetters.textContent = incorrectLetterBank.join(" ");
-    $guessesLeft.textContent = guessesLeft;
+    guessesRem--;
+    wrongLetterArr.push(letter.toUpperCase());
+    d_guessedLetters.textContent = wrongLetterArr.join(" ");
+    d_guessesRem.textContent = guessesRem;
 
     }
 
@@ -108,26 +162,43 @@ function checkIncorrect(letter) {
 //checkLose
 
 function checkLoss() {
-    if (guessesLeft === 0) {
+    if (guessesRem === 0) {
         losses++;
         gameRunning = false;
-        $losses.textContent = losses;
-        $placeholders.textcontent = pickedWord;
+        d_losses.textContent = losses;
+        d_placeholders.textContent = ranWord;
+        $('#wookieepedia-button').prop('disabled', false);
+        
     }
     checkWin();
 }
 
 //checkWin
     function checkWin() {
-    if (pickedWord.toLowerCase() === pickedWordPlaceholderArr.join("").toLowerCase()) {
+    if (ranWord.toLowerCase() === ranWordPlaceholderArr.join("").toLowerCase()) {
         wins++;
         gameRunning = false;
-        $wins.textContent = wins;
+        d_wins.textContent = wins;
+        $('#wookieepedia-button').prop('disabled', false);
+        
+    }
 }
-}
+
+
 //event listener for new game button
 
-$newGameButton.addEventListener("click", newGame);
+d_newGameButton.addEventListener("click", newGame);
+
+
+//event listender and function for wook link
+
+$(document).ready(function() {
+$("#wookieepedia-button").on("click", function() {
+    var link = "http://starwars.wikia.com/wiki/" + ranWord.split(" ").join("_");
+    window.open(link,"_blank");
+ })
+});
+
 
 //event listener for onkeyup
 
